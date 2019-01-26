@@ -1,4 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/ros-websocket/ros-websocket.html">
 <link rel="import" href="../bower_components/ros-topic/ros-topic.html">
 <link rel="import" href="../bower_components/ros-service/ros-service.html">
@@ -27,6 +29,10 @@
     [[status]]
     <div>
       Torso height: [[_round(torsoHeight.data, 0.0001)]] meters
+    </div>
+    <div class="layout horizontal center">
+      <paper-slider min="0" max="0.4" step="0.01" editable value="{{desiredTorsoHeight}}"></paper-slider>
+      <paper-button>Set torso</paper-button>
     </div>
   </template>
   <script>
