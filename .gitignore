@@ -1,3 +1,12 @@
 *.pyc
 *~
 cmake*
+
+\.vscode/c_cpp_properties\.json
+
+\.idea/
+
+\venv/
+\.vscode/settings\.json
+
+course_setup/\.vscode/

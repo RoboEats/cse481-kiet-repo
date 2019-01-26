@@ -34,7 +34,6 @@ class Torso(object):
     def __init__(self):
         # TODO: Create actionlib client
         self._client = actionlib.SimpleActionClient(ACTION_NAME, FollowJointTrajectoryAction)
-        # self._client = actionlib.SimpleActionClient(ACTION_NAME, JointTrajectoryAction)
         # TODO: Wait for server
         self._client.wait_for_server()
         pass
