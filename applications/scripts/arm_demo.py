@@ -23,8 +23,8 @@ def main():
                    [0.8, 0.75, 0.0, -2.0, 0.0, 2.0, 0.0],
                    [1.5, -0.6, 3.0, 1.0, 3.0, 1.0, 3.0]]
 
-#     torso = robot_api.Torso()
-#     torso.set_height(robot_api.Torso.MAX_HEIGHT)
+    torso = robot_api.Torso()
+    torso.set_height(robot_api.Torso.MAX_HEIGHT)
 
     arm = robot_api.Arm()
     for vals in DISCO_POSES:
