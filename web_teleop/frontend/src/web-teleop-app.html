@@ -4,7 +4,8 @@
 <link rel="import" href="../bower_components/ros-service/ros-service.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-slider/paper-slider.html">
-<link rel="import" href="../bower_components/">
+<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 
@@ -87,7 +88,14 @@
 
     <div>
       <div><strong>Gripper:</strong></div>
-
+      <label id="label1">Gripper State:</label>
+      <paper-radio-group selected="{{gripperState}}" aria-labelledby="label1">
+        <paper-radio-button name="open">open</paper-radio-button>
+        <paper-radio-button name="close">close</paper-radio-button>
+      </paper-radio-group>
+      <div>Effort:</div>
+      <paper-slider min="35" max="100" step="1" editable value="{{desiredGripperEffort}}"></paper-slider>
+      <paper-button on-tap="_setGripper">Set gripper</paper-button>
     </div>
 
     <br>
@@ -125,6 +133,10 @@
       static get is() { return 'web-teleop-app'; }
       static get properties() {
         return {
+          gripperState: {
+            type: String,
+            value: "open"
+          },
           prop1: {
             type: String,
             value: 'web-teleop-app'
@@ -253,6 +265,16 @@
         clearInterval(this.baseCommand);
       }
 
+      _setGripper() {
+        if (this.gripperState === "open") {
+          this.status = "Opening gripper...";
+          this.$.gripperService.call({open : true, effort : this.desiredGripperEffort});
+        } else {
+          this.status = "Closing gripper with effort: " + this.desiredGripperEffort;
+          this.$.gripperService.call({open : false, effort : this.desiredGripperEffort});
+        }
+      }
+
       _setHead() {
         this.status = 'Setting head to pan: ' + this._round(this.desiredHeadPan, 0.0001) + 
                                    ', tilt: ' + this._round(this.desiredHeadTilt, 0.0001);
@@ -262,6 +284,17 @@
       _setTorso() {
         this.status = 'Setting torso to ' + this.desiredTorsoHeight + ' meters...';
         this.$.torsoService.call({ height: this.desiredTorsoHeight });
+      }
+
+      _handleGripperSuccess() {
+        if (this.gripperState === "open") {
+          this.status = "Opened gripper"
+        } else {
+          this.status = "Closed gripper with effort: " + this.desiredGripperEffort;
+        }
+      }
+      _handleGripperError(evt) {
+        this.status = 'Error: ' + evt.detail;
       }
 
       _handleHeadSuccess() {

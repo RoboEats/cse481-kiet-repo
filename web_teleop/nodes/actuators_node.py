@@ -2,7 +2,7 @@
 
 import robot_api
 import rospy
-from web_teleop.srv import SetTorso, SetTorsoResponse, SetHead, SetHeadResponse, OpenGripper, OpenGripperResponse
+from web_teleop.srv import SetTorso, SetTorsoResponse, SetHead, SetHeadResponse, SetGripper, SetGripperResponse
 
 
 def wait_for_time():
@@ -32,12 +32,13 @@ class ActuatorServer(object):
         return SetHeadResponse()
 
     def handle_set_gripper(self, request):
-        print ""web_teleop/open_gripper: opening gripper"
         if (request.open):
+            print "web_teleop/set_gripper: opening gripper"
             self._gripper.open()
         else:
+            print "web_teleop/set_gripper: closing gripper with effort %.2f" % request.effort
             self._gripper.close(request.effort)
-        return OpenGripperResponse()
+        return SetGripperResponse()
 
 
 def main():
