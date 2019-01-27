@@ -98,7 +98,6 @@ class Head(object):
 
         # TODO: Wait for result
         self._look_client.wait_for_result()
-        # rospy.logerr('Not implemented.')
 
     def pan_tilt(self, pan, tilt):
         """Moves the head by setting pan/tilt angles.

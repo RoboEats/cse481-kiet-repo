@@ -26,6 +26,10 @@
       #driving {
         display: inline-block;
       }
+      #camera img {
+        width: 75%;
+        height: auto;
+      }
     </style>
     
 
@@ -40,6 +44,10 @@
 
     <h1>Fetch teleop</h1>
     [[status]]
+
+    <div id="camera">
+      <img src="//[[hostname]]:8080/stream?topic=/head_camera/rgb/image_raw"></img>
+    </div>
 
     <div>
       Torso height: [[_round(torsoHeight.data, 0.0001)]] meters
@@ -74,12 +82,21 @@
      * @polymer
      */
     class WebTeleopApp extends Polymer.Element {
+      ready() {
+        super.ready();
+        console.log("hostname: " + window.location.hostname);
+        // this.hostname = window.location.hostname;
+      };
       static get is() { return 'web-teleop-app'; }
       static get properties() {
         return {
           prop1: {
             type: String,
             value: 'web-teleop-app'
+          },
+          hostname: {
+            type: String,
+            value: "192.168.1.179"
           }
         };
       }
