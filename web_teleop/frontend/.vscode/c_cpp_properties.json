@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/kiet/catkin_ws/devel/include",
+        "/opt/ros/indigo/include",
+        "/home/kiet/catkin_ws/src/beginner_tutorials/include",
+        "/home/kiet/catkin_ws/src/cse481wi19/joint_state_reader/include",
+        "/home/kiet/catkin_ws/src/cse481wi19/kuri_gazebo/include",
+        "/home/kiet/catkin_ws/src/cse481wi19/web_teleop/include",
+        "/usr/include"
+      ],
+      "name": "Linux"
+    }
+  ]
+}

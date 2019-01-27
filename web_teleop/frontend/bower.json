@@ -5,7 +5,9 @@
     "polymer": "Polymer/polymer#^2.0.0",
     "ros-websocket": "jstnhuang/ros-websocket#^4.0.0",
     "ros-topic": "jstnhuang/ros-topic#^1.0.0",
-    "ros-service": "jstnhuang/ros-service#^2.0.1"
+    "ros-service": "jstnhuang/ros-service#^2.0.1",
+    "paper-button": "polymerelements/paper-button#2.x",
+    "paper-slider": "polymerelements/paper-slider#2.x"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",
