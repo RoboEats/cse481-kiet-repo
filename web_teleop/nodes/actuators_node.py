@@ -19,7 +19,7 @@ class ActuatorServer(object):
     def handle_set_torso(self, request):
         # type: (SetTorsoRequest) -> None
         # TODO: move the torso to the requested height
-        print "web_teleop/set_torso: setting height to " + request.height
+        print "web_teleop/set_torso: setting height to %.2f" % request.height
         self._torso.set_height(request.height)
         return SetTorsoResponse()
 
