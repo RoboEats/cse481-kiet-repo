@@ -2,7 +2,7 @@
 
 import robot_api
 import rospy
-from web_teleop.srv import SetTorso, SetTorsoResponse, SetHead, SetHeadResponse, SetGripper, SetGripperResponse
+from web_teleop.srv import SetTorso, SetTorsoResponse, SetHead, SetHeadResponse, SetGripper, SetGripperResponse, SetArm, SetArmResponse
 
 
 def wait_for_time():
@@ -17,6 +17,7 @@ class ActuatorServer(object):
         self._torso = robot_api.Torso()
         self._head = robot_api.Head()
         self._gripper = robot_api.Gripper()
+        self._arm = robot_api.Arm()
 
     def handle_set_torso(self, request):
         # type: (SetTorsoRequest) -> None
@@ -40,6 +41,12 @@ class ActuatorServer(object):
             self._gripper.close(request.effort)
         return SetGripperResponse()
 
+    def handle_set_arm(self, request):
+        aj = robot_api.ArmJoints.from_list(request.values)
+        print "web_teleop/set_arm: setting arm: %s" % str(request.values)
+        self._arm.move_to_joints(aj)
+        return SetArmResponse()
+
 
 def main():
     rospy.init_node('web_teleop_actuators')
@@ -52,6 +59,8 @@ def main():
                                     server.handle_set_head)
     gripper_service = rospy.Service('web_teleop/set_gripper', SetGripper,
                                     server.handle_set_gripper)
+    arm_service = rospy.Service('web_teleop/set_arm', SetArm,
+                                    server.handle_set_arm)
     print "web_teleop: service running..."
     rospy.spin()
 
